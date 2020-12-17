@@ -1,0 +1,44 @@
+.app-bar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  background-color: #000;
+  height: 24px;
+
+  .dragable {
+    flex: 1;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+  }
+
+  .close {
+    -webkit-user-select: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+
+    color: white;
+    padding-right: 2px;
+    padding-left: 2px;
+
+    &:hover {
+      background-color: rgb(26, 26, 26);
+      cursor: pointer;
+    }
+  }
+
+  .title {
+    color: white;
+    margin-top: 2px;
+    margin-left: 8px;
+
+    p {
+      margin: 0;
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.search-bar {
+  display: flex;
+  row-gap: 8px;
+  padding: 12px;
+  border: 1px solid #eaeaea;
+
+  & > * {
+    margin-right: 16px;
+  }
+}

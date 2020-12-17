@@ -1,0 +1,24 @@
+.search-result {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+
+  .item-image {
+    height: 74px;
+    width: 74px;
+
+    img {
+      height: 74px !important;
+      width: 74px !important;
+      object-fit: contain;
+    }
+  }
+
+  .item-name {
+    margin-left: 8px;
+  }
+}
+
+.card {
+  cursor: pointer;
+}
