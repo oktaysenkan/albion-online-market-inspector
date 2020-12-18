@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.0.1...v1.0.2) (2020-12-18)
+
+
+### Bug Fixes
+
+* **src/app.tsx:** appbar showing only electron ([75bc6c4](https://github.com/oktaysenkan/albion-online-market-inspector/commit/75bc6c4a78f50adaaac73a3e55c83f6612424a09)), closes [#1](https://github.com/oktaysenkan/albion-online-market-inspector/issues/1)
+
 ### [1.0.1](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.0.0...v1.0.1) (2020-12-18)
 
 
