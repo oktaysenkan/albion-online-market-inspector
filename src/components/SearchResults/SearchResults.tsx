@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
@@ -8,35 +8,50 @@ import { Item } from 'src/interfaces/models/Item';
 import SearchResult from '../SearchResult/SearchResult';
 
 import './SearchResults.scss';
+import SearchResultSkeleton from '../SearchResult/SearchResultSkeleton';
 
 const SearchResults = React.forwardRef<List, SearchResultsProps<Item>>(
-  ({ data, onItemClick }, ref) => {
+  ({ data, onItemClick, loading }, ref) => {
     return (
-      <AutoSizer>
-        {({ height, width }) => (
-          <List
-            ref={ref}
-            className="search-results"
-            height={height}
-            itemCount={data.length}
-            itemSize={116}
-            width={width}
-          >
-            {({ index, style }) => (
-              <SearchResult
-                style={style}
-                key={data[index].UniqueName}
-                item={data[index]}
-                onClick={() => onItemClick(data[index])}
-              />
+      <>
+        {loading ? (
+          <>
+            {Array(10)
+              .fill(1)
+              .map((index) => (
+                <SearchResultSkeleton key={index} />
+              ))}
+          </>
+        ) : (
+          <AutoSizer>
+            {({ height, width }) => (
+              <>
+                <List
+                  ref={ref}
+                  className="search-results"
+                  height={height}
+                  itemCount={data.length}
+                  itemSize={116}
+                  width={width}
+                >
+                  {({ index, style }) => (
+                    <SearchResult
+                      style={style}
+                      key={data[index].UniqueName}
+                      item={data[index]}
+                      onClick={() => onItemClick(data[index])}
+                    />
+                  )}
+                </List>
+              </>
             )}
-          </List>
+          </AutoSizer>
         )}
-      </AutoSizer>
+      </>
     );
   },
 );
 
 SearchResults.displayName = 'SearchResults';
 
-export default SearchResults;
+export default memo(SearchResults);

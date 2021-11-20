@@ -1,57 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Badge, Loading, Modal, Table } from '@geist-ui/react';
-import { useRecoilState } from 'recoil';
 
-import { selectedItem as selectedItemState } from 'src/store/item/atoms';
+import { useItemPrices } from 'src/queries/items.queries';
 
-import http from 'src/utils/http';
-import { getEnchantment, getTier, transformItemPrice } from 'src/utils/items';
+import { getEnchantment, getTier } from 'src/utils/items';
 
-import { ItemPrice } from 'src/interfaces/models/ItemPrice';
-import { Price } from 'src/interfaces/models/Price';
 import { InputModalProps } from 'src/interfaces/components/InputModal/InputModal';
 
 import './ItemModal.scss';
 
-const ItemModal: React.FC<InputModalProps> = ({ open, onClose }): React.ReactElement => {
-  const [selectedItem] = useRecoilState(selectedItemState);
-  const [prices, setPrices] = useState<Price[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!selectedItem) return;
-
-    const getPrices = async () => {
-      setLoading(true);
-
-      const { data: response } = await http.get<ItemPrice[]>(
-        `stats/prices/${selectedItem.UniqueName}?qualities=1,2,3,4,5`,
-      );
-
-      const transformedPrices = transformItemPrice(response);
-
-      setPrices(transformedPrices);
-
-      setLoading(false);
-    };
-
-    console.log(selectedItem);
-
-    getPrices();
-  }, [selectedItem]);
-
-  if (!selectedItem) return <></>;
+const ItemModal: React.FC<InputModalProps> = ({
+  open,
+  onClose,
+  selectedItem,
+}): React.ReactElement => {
+  const { data, isLoading, isError } = useItemPrices(selectedItem.UniqueName);
 
   const itemName = selectedItem.LocalizedNames?.['EN-US'];
   const tier = `T${getTier(selectedItem)}.${getEnchantment(selectedItem)}`;
 
-  const blackMarketPrices = prices
-    .filter((item) => item.city === 'Black Market')
-    .filter((item) => item.maximumBuyPrice);
+  const blackMarketPrices = useMemo(() => {
+    if (!data) {
+      return [];
+    }
 
-  const cityPrices = prices
-    .filter((item) => item.city !== 'Black Market')
-    .filter((item) => item.minimumSellPrice);
+    return data
+      .filter((item) => item.city === 'Black Market')
+      .filter((item) => item.maximumBuyPrice);
+  }, [data]);
+
+  const cityPrices = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+
+    return data
+      .filter((item) => item.city !== 'Black Market')
+      .filter((item) => item.minimumSellPrice);
+  }, [data]);
+
+  if (!selectedItem) return <></>;
 
   return (
     <Modal width="800px" open={open} onClose={onClose}>
@@ -63,9 +51,7 @@ const ItemModal: React.FC<InputModalProps> = ({ open, onClose }): React.ReactEle
         </Badge>
       </Modal.Title>
 
-      {loading ? (
-        <Loading />
-      ) : (
+      {data ? (
         <div className="prices">
           {cityPrices.length > 0 && (
             <Table data={cityPrices}>
@@ -87,6 +73,10 @@ const ItemModal: React.FC<InputModalProps> = ({ open, onClose }): React.ReactEle
 
           {blackMarketPrices.length < 1 && cityPrices.length < 1 && <p>No price available</p>}
         </div>
+      ) : isLoading ? (
+        <Loading />
+      ) : (
+        isError && <div>error</div>
       )}
 
       <Modal.Action size="small" onClick={onClose}>

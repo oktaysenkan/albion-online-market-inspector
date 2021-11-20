@@ -24,7 +24,9 @@
     "millify": "^3.3.0",
     "moment": "^2.29.1",
     "react": "^16.13.1",
+    "react-content-loader": "^6.0.3",
     "react-dom": "^16.13.1",
+    "react-query": "^3.32.0",
     "react-scripts": "3.4.1",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.6",
@@ -45,7 +47,7 @@
     "electron-release": "electron-builder --publish=always",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
-    "react-serve": "SET BROWSER=none&&yarn react-start",
+    "react-serve": "set BROWSER=none&&yarn react-start",
     "lint": "eslint src/**/*.{ts,tsx}",
     "commit": "git-cz"
   },

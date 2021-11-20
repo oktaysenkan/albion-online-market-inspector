@@ -1,5 +1,5 @@
-import { Loading, useModal } from '@geist-ui/react';
-import React, { createRef, useEffect, useState } from 'react';
+import { Display, Note, useModal } from '@geist-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import { useRecoilState } from 'recoil';
 
@@ -9,66 +9,35 @@ import ItemModal from 'src/components/ItemModal/ItemModal';
 import SearchBar from 'src/components/SearchBar/SearchBar';
 import SearchResults from 'src/components/SearchResults/SearchResults';
 
-import localDatabase from 'src/utils/local-database';
-import { getEnchantment, getTier } from 'src/utils/items';
-
 import { Item } from 'src/interfaces/models/Item';
 
+import useSearch from 'src/hooks/useSearch';
+import { useAllItems } from 'src/queries/items.queries';
+
 import './Home.scss';
+import SearchResultSkeleton from 'src/components/SearchResult/SearchResultSkeleton';
 
 const Home = (): React.ReactElement => {
+  const windowRef = useRef<List>(null);
+
+  const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
+
   const [itemName, setItemName] = useState('');
   const [selectedEnchantment, setSelectedEnchantment] = useState('');
   const [selectedTier, setSelectedTier] = useState('');
-
-  const [loading, setLoading] = useState(true);
-
-  const [searchResults, setSearchResults] = useState<Item[]>([]);
-
-  const windowRef = createRef<List>();
-
-  const [, setSelectedItem] = useRecoilState(selectedItemState);
   const { setVisible, visible } = useModal();
 
-  const handleItemsLoaded = () => {
-    setLoading(false);
-  };
+  const { data, isLoading, isError } = useAllItems();
 
-  useEffect(() => {
-    const trigger = localDatabase.onItemsLoaded(handleItemsLoaded);
-
-    return trigger;
-  }, []);
-
-  useEffect(() => {
-    console.log(localDatabase.items);
-
-    const searchResults =
-      itemName.length > 0
-        ? localDatabase.search(itemName).map((item) => item.item)
-        : localDatabase.items;
-
-    const haveNameItems = searchResults.filter((item) => item.LocalizedNames?.['EN-US']);
-
-    const enchantmentSearchResults = haveNameItems.filter((item) => {
-      const itemEnchantment = getEnchantment(item);
-
-      return selectedEnchantment ? Number(selectedEnchantment) === itemEnchantment : true;
-    });
-
-    const tierSearchResults = enchantmentSearchResults.filter((item) => {
-      const itemTier = getTier(item);
-
-      return selectedTier ? Number(selectedTier) === itemTier : true;
-    });
-
-    setSearchResults(tierSearchResults);
-  }, [itemName, selectedEnchantment, selectedTier, loading]);
+  const searchResults = useSearch({
+    list: data,
+    itemName,
+    selectedEnchantment,
+    selectedTier,
+  });
 
   useEffect(() => {
     windowRef.current?.scrollTo(0);
-
-    // eslint-disable-next-line
   }, [searchResults]);
 
   const handleItemNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,12 +74,25 @@ const Home = (): React.ReactElement => {
         itemName={itemName}
       />
 
-      <ItemModal onClose={handleModalClose} open={visible} />
+      {selectedItem && (
+        <ItemModal onClose={handleModalClose} open={visible} selectedItem={selectedItem} />
+      )}
 
-      {!loading ? (
-        <SearchResults ref={windowRef} data={searchResults} onItemClick={handleItemClick} />
+      {data || isLoading ? (
+        <SearchResults
+          ref={windowRef}
+          loading={isLoading}
+          data={searchResults}
+          onItemClick={handleItemClick}
+        />
       ) : (
-        <Loading />
+        isError && (
+          <Display shadow>
+            <Note type="error" label={false} filled>
+              An error accured
+            </Note>
+          </Display>
+        )
       )}
     </div>
   );

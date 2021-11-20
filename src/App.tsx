@@ -7,17 +7,9 @@ import Home from './screens/Home/Home';
 import './App.scss';
 
 const App = (): React.ReactElement => {
-  const handleClosePress = () => {
-    if (isElectron()) {
-      const remoteWindow = window.require('electron').remote;
-
-      remoteWindow.getCurrentWindow().close();
-    }
-  };
-
   return (
     <div className="app">
-      {isElectron() && <AppBar onClosePress={handleClosePress} />}
+      {isElectron() && <AppBar />}
       <Home />
     </div>
   );

@@ -42,6 +42,13 @@ export const getTier = (item: Item): number => {
   return itemTier;
 };
 
+/**
+ *
+ * Converts `1` to `Normal`
+ *
+ * @param quality number
+ * @returns Human-readable quality
+ */
 export const itemQualityToString = (quality: number): string => {
   switch (quality) {
     case 1:
@@ -64,6 +71,34 @@ export const itemQualityToString = (quality: number): string => {
   }
 };
 
+/**
+ *
+ * Converts from
+ *
+ * buy_price_max: 31000000
+ * buy_price_max_date: "2021-11-08T08:00:00"
+ * buy_price_min: 31000000
+ * buy_price_min_date: "2021-11-08T08:00:00"
+ * city: "Thetford"
+ * item_id: "T8_OFF_LAMP_UNDEAD@3"
+ * quality: 5
+ * sell_price_max: 49777330
+ * sell_price_max_date: "2021-11-08T02:50:00"
+ * sell_price_min: 46500000
+ * sell_price_min_date: "2021-11-08T02:50:00"
+ *
+ * to
+ *
+ * city: "Thetford"
+ * maximumBuyPrice: "31m"
+ * maximumBuyPriceDate: "7 hours ago"
+ * minimumSellPrice: "46.5m"
+ * minimumSellPriceDate: "13 hours ago"
+ * quality: "Masterpiece"
+ *
+ * @param itemPrices Item prices
+ * @returns Prices
+ */
 export const transformItemPrice = (itemPrices: ItemPrice[]): Price[] => {
   return itemPrices.map((item) => {
     const isValidDate = (date: Date) => {
