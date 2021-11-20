@@ -6,9 +6,9 @@ import { SearchResultsProps } from 'src/interfaces/components/SearchResults/Sear
 import { Item } from 'src/interfaces/models/Item';
 
 import SearchResult from '../SearchResult/SearchResult';
+import SearchResultSkeleton from '../SearchResult/SearchResultSkeleton';
 
 import './SearchResults.scss';
-import SearchResultSkeleton from '../SearchResult/SearchResultSkeleton';
 
 const SearchResults = React.forwardRef<List, SearchResultsProps<Item>>(
   ({ data, onItemClick, loading }, ref) => {

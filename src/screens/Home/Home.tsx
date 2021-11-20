@@ -15,7 +15,6 @@ import useSearch from 'src/hooks/useSearch';
 import { useAllItems } from 'src/queries/items.queries';
 
 import './Home.scss';
-import SearchResultSkeleton from 'src/components/SearchResult/SearchResultSkeleton';
 
 const Home = (): React.ReactElement => {
   const windowRef = useRef<List>(null);
