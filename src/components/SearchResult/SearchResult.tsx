@@ -3,9 +3,15 @@ import React from 'react';
 
 import { getItemImageURL } from 'src/services/items/items';
 
-import { SearchResultProps } from 'src/interfaces/components/SearchResult/SearchResult';
-
 import './SearchResult.scss';
+import { Item } from 'src/interfaces/models/Item';
+
+type NativeProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'>;
+
+export interface SearchResultProps extends NativeProps {
+  item: Item;
+  onClick?: (item: Item) => void;
+}
 
 const SearchResult: React.FC<SearchResultProps> = ({
   item,

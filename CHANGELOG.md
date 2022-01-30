@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.0.2...v1.1.0) (2022-01-14)
+
+
+### Features
+
+* add react query, implement usesearch hook ([bd1234c](https://github.com/oktaysenkan/albion-online-market-inspector/commit/bd1234c7891f51110caaf69c2f565eaa2a05e6ae))
+
+
+### Code Refactoring
+
+* change import order ([b5dfc25](https://github.com/oktaysenkan/albion-online-market-inspector/commit/b5dfc25d1ae059ea8643b5da8e4610d76369abb9))
+
+
+### Build System
+
+* update electron version ([9109843](https://github.com/oktaysenkan/albion-online-market-inspector/commit/9109843064cf551ac178f3a5bc2c109ea31e2167))
+
 ### [1.0.2](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.0.1...v1.0.2) (2020-12-18)
 
 

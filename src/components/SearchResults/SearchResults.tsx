@@ -1,14 +1,20 @@
 import React, { memo } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { uniqueId } from 'lodash';
 
-import { SearchResultsProps } from 'src/interfaces/components/SearchResults/SearchResults';
 import { Item } from 'src/interfaces/models/Item';
 
 import SearchResult from '../SearchResult/SearchResult';
 import SearchResultSkeleton from '../SearchResult/SearchResultSkeleton';
 
 import './SearchResults.scss';
+
+export interface SearchResultsProps<T> extends React.HTMLAttributes<HTMLDivElement> {
+  data: T[];
+  onItemClick: (item: T) => void;
+  loading: boolean;
+}
 
 const SearchResults = React.forwardRef<List, SearchResultsProps<Item>>(
   ({ data, onItemClick, loading }, ref) => {
@@ -18,8 +24,8 @@ const SearchResults = React.forwardRef<List, SearchResultsProps<Item>>(
           <>
             {Array(10)
               .fill(1)
-              .map((index) => (
-                <SearchResultSkeleton key={index} />
+              .map(() => (
+                <SearchResultSkeleton key={uniqueId()} />
               ))}
           </>
         ) : (

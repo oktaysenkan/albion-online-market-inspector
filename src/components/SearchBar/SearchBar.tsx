@@ -1,9 +1,14 @@
 import React from 'react';
 import { Input, Select } from '@geist-ui/react';
 
-import { SearchBarProps } from 'src/interfaces/components/SearchBar/SearchBar';
-
 import './SearchBar.scss';
+
+export interface SearchBarProps extends React.HTMLAttributes<HTMLDivElement> {
+  itemName: string;
+  onItemNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onTierChange: (value: string | string[]) => void;
+  onEnchantmentChange: (value: string | string[]) => void;
+}
 
 const SearchBar: React.FC<SearchBarProps> = ({
   itemName,
@@ -15,14 +20,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <div className="search-bar">
       <Input
         className="input"
-        size="mini"
+        scale={0.7}
         clearable
         placeholder="Item name"
         value={itemName}
         onChange={onItemNameChange}
       />
 
-      <Select className="input" size="small" placeholder="Tier" onChange={onTierChange}>
+      <Select className="input" scale={0.7} placeholder="Tier" onChange={onTierChange}>
         <Select.Option value="all">All</Select.Option>
         <Select.Option value="1">Tier 1</Select.Option>
         <Select.Option value="2">Tier 2</Select.Option>
@@ -36,7 +41,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
       <Select
         className="input"
-        size="small"
+        scale={0.7}
         placeholder="Enchantment"
         onChange={onEnchantmentChange}
       >

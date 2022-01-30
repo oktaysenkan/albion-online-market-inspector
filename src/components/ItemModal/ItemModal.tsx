@@ -5,9 +5,15 @@ import { useItemPrices } from 'src/queries/items.queries';
 
 import { getEnchantment, getTier } from 'src/utils/items';
 
-import { InputModalProps } from 'src/interfaces/components/InputModal/InputModal';
+import { Item } from 'src/interfaces/models/Item';
 
 import './ItemModal.scss';
+
+export interface InputModalProps extends React.HTMLAttributes<HTMLDivElement> {
+  open: boolean;
+  onClose: () => void;
+  selectedItem: Item;
+}
 
 const ItemModal: React.FC<InputModalProps> = ({
   open,
@@ -42,11 +48,11 @@ const ItemModal: React.FC<InputModalProps> = ({
   if (!selectedItem) return <></>;
 
   return (
-    <Modal width="800px" open={open} onClose={onClose}>
+    <Modal width="800px" visible={open} onClose={onClose}>
       <Modal.Title className="title">
         {itemName}
 
-        <Badge className="badge" size="mini">
+        <Badge scale={0.5} marginLeft={0.5}>
           {tier}
         </Badge>
       </Modal.Title>
@@ -79,9 +85,7 @@ const ItemModal: React.FC<InputModalProps> = ({
         isError && <div>error</div>
       )}
 
-      <Modal.Action size="small" onClick={onClose}>
-        Close
-      </Modal.Action>
+      <Modal.Action onClick={onClose}>Close</Modal.Action>
     </Modal>
   );
 };
