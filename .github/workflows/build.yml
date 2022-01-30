@@ -9,9 +9,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16
-      - name: install dependencies
+      - name: Install Dependencies
         run: yarn --frozen-lockfile
-      - name: build
+      - name: Build
         run: yarn run make
 
   build_on_mac:
@@ -21,9 +21,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16
-      - name: install dependencies
+      - name: Install Dependencies
         run: yarn --frozen-lockfile
-      - name: build
+      - name: Build
         run: yarn run make
 
   build_on_win:
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16
-      - name: install dependencies
+      - name: Install Dependencies
         run: yarn --frozen-lockfile
-      - name: build
+      - name: Build
         run: yarn run make

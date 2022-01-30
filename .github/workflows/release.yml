@@ -12,9 +12,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16
-      - name: install dependencies
+      - name: Install Dependencies
         run: yarn --frozen-lockfile
-      - name: publish
+      - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn run publish
@@ -26,9 +26,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16
-      - name: install dependencies
+      - name: Install Dependencies
         run: yarn --frozen-lockfile
-      - name: publish
+      - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn run publish
@@ -40,9 +40,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 16
-      - name: install dependencies
+      - name: Install Dependencies
         run: yarn --frozen-lockfile
-      - name: publish
+      - name: Publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn run publish
