@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.1.0...v1.1.1) (2022-01-30)
+
+
+### Build System
+
+* delete yarn.lock file ([b2459a5](https://github.com/oktaysenkan/albion-online-market-inspector/commit/b2459a5ede7ff36992b13afb03cf4f5d4ba6ebf0))
+
 ## [1.1.0](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.0.2...v1.1.0) (2022-01-30)
 
 
