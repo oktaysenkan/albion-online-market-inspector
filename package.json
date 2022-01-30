@@ -1,6 +1,6 @@
 {
   "name": "albion-online-market-inspector",
-  "productName": "albion-online-market-inspector",
+  "productName": "Albion Online Market Inspector",
   "version": "1.0.2",
   "description": "My Electron application description",
   "main": ".webpack/main",
