@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.1.1...v1.1.2) (2022-06-27)
+
+
+### Bug Fixes
+
+* react query dev tool zindex issue ([b2fdecc](https://github.com/oktaysenkan/albion-online-market-inspector/commit/b2fdecc5e5401820688b65ce7d006f0da6d79946))
+
+
+### CI
+
+* build on linux when push and pull request ([35f6e26](https://github.com/oktaysenkan/albion-online-market-inspector/commit/35f6e26f9e4a1c480914d842993439b08b8969cc))
+
+
+### Others
+
+* add dist folder to .gitignore ([426f7d0](https://github.com/oktaysenkan/albion-online-market-inspector/commit/426f7d070a50503ade2ff90b0951e0d73ca2dc14))
+
 ### [1.1.1](https://github.com/oktaysenkan/albion-online-market-inspector/compare/v1.1.0...v1.1.1) (2022-01-30)
 
 
