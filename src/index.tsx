@@ -16,9 +16,9 @@ ReactDOM.render(
         <GeistProvider>
           <CssBaseline />
           <App />
-          <ReactQueryDevtools initialIsOpen={process.env.NODE_ENV === 'development'} />
         </GeistProvider>
       </RecoilRoot>
+      <ReactQueryDevtools initialIsOpen={process.env.NODE_ENV === 'development'} />
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root'),
